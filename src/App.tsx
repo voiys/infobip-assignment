@@ -1,6 +1,6 @@
 import { ChakraProvider } from '@chakra-ui/react';
 import { FC, useState } from 'react';
-import Input from './components/Input';
+import TimetableInputForm from './components/TimetableInputForm';
 import { OffsetDate } from './utils/OffsetDate';
 import { ScheduleDate } from './utils/ScheduleDate';
 
@@ -11,12 +11,12 @@ const App: FC = () => {
 
   return (
     <ChakraProvider resetCSS>
-      <Input date={tomorrow} value={hours} setValue={setHours} type='hour' />
-      <Input
-        date={tomorrow}
-        value={minutes}
-        setValue={setMinutes}
-        type='minute'
+      <TimetableInputForm
+        timetableDate={tomorrow}
+        hoursValue={hours}
+        minutesValue={minutes}
+        setHours={setHours}
+        setMinutes={setMinutes}
       />
     </ChakraProvider>
   );
