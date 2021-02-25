@@ -1,11 +1,11 @@
 import { ScheduleDateConfig } from '../types/ScheduleDateConfig';
 import { Time } from '../types/Time';
-import { Weekday } from '../types/Weekday';
+import { Weekday } from './Weekday';
 import { scheduleDateConfig } from './config';
 import { OffsetDate } from './OffsetDate';
 
 class ScheduleDate extends Date {
-  private config: ScheduleDateConfig;
+  config: ScheduleDateConfig;
   constructor(
     date: OffsetDate,
     config: ScheduleDateConfig = scheduleDateConfig
@@ -17,16 +17,16 @@ class ScheduleDate extends Date {
   }
 
   get isEven() {
-    return this.getDate() % 2 == 0;
+    return this.getDate() % 2 === 0;
   }
 
   get isWeekend() {
     const day = this.getDay();
-    return day == Weekday.Saturday || day === Weekday.Sunday;
+    return day === Weekday.Saturday || day === Weekday.Sunday;
   }
 
   get isWorkingSaturday() {
-    return this.getDay() == Weekday.Saturday && this.isEven;
+    return this.getDay() === Weekday.Saturday && this.isEven;
   }
 
   get isWorkingDay() {
