@@ -20,13 +20,11 @@ export interface InputProps {
 const Input: FC<InputProps> = ({ date, type, value, setValue }) => {
   const isHour = type === 'hour';
   const [shiftStartHour, shiftStartMinute] = date.shiftStart;
-  const [
-    maxBeforeShiftEndHour,
-    maxBeforeShiftEndMinute,
-  ] = date.maxBeforeShiftEnd;
   const defaultValue = isHour ? shiftStartHour : shiftStartMinute;
   const min = isHour ? shiftStartHour : shiftStartMinute;
-  const max = isHour ? maxBeforeShiftEndHour : maxBeforeShiftEndMinute;
+  const max = isHour
+    ? date.config.hourSteps - 1 + shiftStartHour
+    : (date.config.minuteSteps - 1) * date.config.minuteStep;
   const step = isHour ? date.config.hourStep : date.config.minuteStep;
   const handleChange = (value: string) => {
     setValue(value);
