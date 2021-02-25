@@ -1,5 +1,6 @@
-import { Box } from '@chakra-ui/react';
-import { Dispatch, FC, SetStateAction } from 'react';
+import { Box, Button } from '@chakra-ui/react';
+import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
+import { Time } from '../types/Time';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import Input from './TimetableInput';
 
@@ -18,8 +19,16 @@ const TimetableInputForm: FC<TimetableInputForm> = ({
   setMinutes,
   timetableDate,
 }) => {
+  const handleSubmit: FormEventHandler = e => {
+    e.preventDefault();
+
+    const time: Time = [parseInt(hoursValue), parseInt(minutesValue)];
+
+    console.log(`submitted ${time}`);
+  };
+
   return (
-    <Box as='form'>
+    <Box as='form' onSubmit={handleSubmit}>
       <Input
         timetableDate={timetableDate}
         value={hoursValue}
@@ -32,6 +41,7 @@ const TimetableInputForm: FC<TimetableInputForm> = ({
         setValue={setMinutes}
         type='minute'
       />
+      <Button type='submit'>Add appointment</Button>
     </Box>
   );
 };
