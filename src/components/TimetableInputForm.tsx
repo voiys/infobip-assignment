@@ -2,9 +2,9 @@ import { Box, Button } from '@chakra-ui/react';
 import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
 import { Time } from '../types/Time';
 import { ScheduleDate } from '../utils/ScheduleDate';
-import Input from './TimetableInput';
+import TimetableInput from './TimetableInput';
 
-export interface TimetableInputForm {
+export interface TimetableInputFormProps {
   timetableDate: ScheduleDate;
   hoursValue: string;
   minutesValue: string;
@@ -12,7 +12,7 @@ export interface TimetableInputForm {
   setMinutes: Dispatch<SetStateAction<string>>;
 }
 
-const TimetableInputForm: FC<TimetableInputForm> = ({
+const TimetableInputForm: FC<TimetableInputFormProps> = ({
   hoursValue,
   minutesValue,
   setHours,
@@ -29,13 +29,13 @@ const TimetableInputForm: FC<TimetableInputForm> = ({
 
   return (
     <Box as='form' onSubmit={handleSubmit}>
-      <Input
+      <TimetableInput
         timetableDate={timetableDate}
         value={hoursValue}
         setValue={setHours}
         type='hour'
       />
-      <Input
+      <TimetableInput
         timetableDate={timetableDate}
         value={minutesValue}
         setValue={setMinutes}
