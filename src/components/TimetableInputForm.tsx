@@ -4,9 +4,9 @@ import { Time } from '../types/Time';
 import { Appointment } from '../types/Appointment';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimetableInput from './TimetableInput';
-import { InvalidType } from '../utils/InvalidType';
 import MotionContainer from './MotionContainer';
 import { chakraTheme } from '../utils/theme';
+import { AppointmentType } from '../utils/AppointmentType';
 
 export interface TimetableInputFormProps {
   timetableDate: ScheduleDate;
@@ -16,7 +16,7 @@ export interface TimetableInputFormProps {
   setMinutes: Dispatch<SetStateAction<string>>;
   addAppointment: (appointment: Appointment) => void;
   appointments: Appointment[];
-  userAppointmentValid: InvalidType | undefined;
+  userAppointmentValid: AppointmentType | undefined;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({
@@ -47,8 +47,7 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
       onSubmit={handleSubmit}
       animate={{
         background:
-          userAppointmentValid !== undefined &&
-          userAppointmentValid === InvalidType.BreakIntersecting
+          userAppointmentValid !== undefined
             ? chakraTheme.colors.red[100]
             : chakraTheme.colors.white,
       }}
