@@ -1,8 +1,8 @@
 import { theme, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { InvalidMessage } from '../types/Common';
-import { AppointmentType } from '../utils/AppointmentType';
-import MotionContainer from './MotionContainer';
+import { InvalidMessage } from '../../types/Common';
+import { AppointmentType } from '../../utils/AppointmentType';
+import MotionContainer from '../shared/MotionContainer';
 
 interface TimetableContainerProps {
   invalidMessage: InvalidMessage;

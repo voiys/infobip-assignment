@@ -6,8 +6,8 @@ import {
   NumberInputStepper,
 } from '@chakra-ui/react';
 import { FC, FocusEventHandler } from 'react';
-import { SetInputSignature } from '../types/Timetable';
-import { ScheduleDate } from '../utils/ScheduleDate';
+import { SetInputSignature } from '../../types/Timetable';
+import { ScheduleDate } from '../../utils/ScheduleDate';
 
 type HourOrMinute = 'hour' | 'minute';
 

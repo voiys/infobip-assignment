@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { InvalidMessage } from '../types/Common';
-import { AppointmentType } from '../utils/AppointmentType';
+import { InvalidMessage } from '../../types/Common';
+import { AppointmentType } from '../../utils/AppointmentType';
 
 export interface ErrorMessageProps {
   invalidMessage: InvalidMessage;

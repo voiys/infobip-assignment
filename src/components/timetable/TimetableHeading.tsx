@@ -1,7 +1,7 @@
 import { Heading } from '@chakra-ui/react';
 import { FC } from 'react';
-import { ScheduleDate } from '../utils/ScheduleDate';
-import Date from './Date';
+import { ScheduleDate } from '../../utils/ScheduleDate';
+import Date from '../shared/Date';
 
 export interface TimetableHeadingProps {
   timetableDate: ScheduleDate;

@@ -1,14 +1,14 @@
 import { Button, Flex, HStack } from '@chakra-ui/react';
 import { FC, FormEventHandler } from 'react';
-import { Time } from '../types/Time';
-import { ScheduleDate } from '../utils/ScheduleDate';
+import { Time } from '../../types/Time';
+import { ScheduleDate } from '../../utils/ScheduleDate';
 import TimetableInput from './TimetableInput';
 import {
   AddAppointmentSignature,
   Appointments,
   InvalidMessage,
-} from '../types/Common';
-import { SetInputSignature } from '../types/Timetable';
+} from '../../types/Common';
+import { SetInputSignature } from '../../types/Timetable';
 
 export interface TimetableInputFormProps {
   timetableDate: ScheduleDate;

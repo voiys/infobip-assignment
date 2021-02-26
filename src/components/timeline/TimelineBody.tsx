@@ -1,10 +1,10 @@
 import { FC } from 'react';
 import { Grid, GridItem, theme } from '@chakra-ui/react';
-import { DateTimeCalculator } from '../utils/DateTimeCalculator';
-import { ScheduleDate } from '../utils/ScheduleDate';
-import { Cursor } from '../types/Cursor';
-import TimeRange from './TimeRange';
-import { Appointments } from '../types/Common';
+import { Appointments } from '../../types/Common';
+import { ScheduleDate } from '../../utils/ScheduleDate';
+import { Cursor } from '../../types/Cursor';
+import { DateTimeCalculator } from '../../utils/DateTimeCalculator';
+import TimeRange from '../shared/TimeRange';
 
 export interface TimelineBodyProps {
   timetableDate: ScheduleDate;

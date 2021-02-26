@@ -1,20 +1,20 @@
 import { Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { useTimetable } from '../hooks/useTimetable';
-import { Appointment } from '../types/Appointment';
+import { useTimetable } from '../../hooks/useTimetable';
+import { Appointment } from '../../types/Appointment';
 import {
   AddAppointmentSignature,
   Appointments,
   RemoveAppointmentSignature,
-} from '../types/Common';
-import { ScheduleDate } from '../utils/ScheduleDate';
-import ErrorMessage from './ErrorMessage';
-import Timeline from './Timeline';
+} from '../../types/Common';
+import { ScheduleDate } from '../../utils/ScheduleDate';
+import ErrorMessage from '../shared/ErrorMessage';
+import Timeline from '../timeline/Timeline';
+import TimetableInputForm from '../timetable-input/TimetableInputForm';
+import TimetableList from '../timetable-list/TimetableListHeader';
 import TimetableBody from './TimetableBody';
 import TimetableContainer from './TimetableContainer';
 import TimetableHeading from './TimetableHeading';
-import TimetableInputForm from './TimetableInputForm';
-import TimetableList from './TimetableList';
 import TimetableUserAppointment from './TimetableUserAppointment';
 
 export interface TimetableProps {
@@ -64,10 +64,7 @@ const Timetable: FC<TimetableProps> = ({
         timetableDate={timetableDate}
       />
       <TimetableBody>
-        <TimetableList
-          appointments={appointments}
-          timetableDate={timetableDate}
-        />
+        <TimetableList timetableDate={timetableDate} />
 
         {userAppointment ? (
           <TimetableUserAppointment

@@ -1,9 +1,9 @@
 import { Box, Flex, Grid, GridItem } from '@chakra-ui/react';
 import { FC } from 'react';
-import { ScheduleDate } from '../utils/ScheduleDate';
-import Time from './Time';
-import { Time as TimeType } from '../types/Time';
-import { DateTimeCalculator } from '../utils/DateTimeCalculator';
+import { DateTimeCalculator } from '../../utils/DateTimeCalculator';
+import { ScheduleDate } from '../../utils/ScheduleDate';
+import Time from '../shared/Time';
+import { Time as TimeType } from '../../types/Time';
 
 export interface TimelineHeaderProps {
   timetableDate: ScheduleDate;

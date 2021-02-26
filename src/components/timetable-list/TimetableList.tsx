@@ -1,8 +1,8 @@
 import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Appointments } from '../types/Common';
-import { AppointmentType } from '../utils/AppointmentType';
-import { ScheduleDate } from '../utils/ScheduleDate';
+import { Appointments } from '../../types/Common';
+import { AppointmentType } from '../../utils/AppointmentType';
+import { ScheduleDate } from '../../utils/ScheduleDate';
 import TimetableListBody from './TimetableListBody';
 import TimetableListHeader from './TimetableListHeader';
 

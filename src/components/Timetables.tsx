@@ -5,8 +5,8 @@ import { AppointmentType } from '../utils/AppointmentType';
 import { OffsetDate } from '../utils/OffsetDate';
 import { RandomGenerator } from '../utils/RandomGenerator';
 import { ScheduleDate } from '../utils/ScheduleDate';
-import NotWorking from './NotWorking';
-import Timetable from './Timetable';
+import NotWorking from './timetable/NotWorking';
+import Timetable from './timetable/Timetable';
 
 const Timetables: FC = () => {
   const weekFromTomorrow = Array.from({ length: 7 }).map(

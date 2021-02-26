@@ -1,8 +1,8 @@
 import { Box, HStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { DateTimeCalculator } from '../utils/DateTimeCalculator';
-import { ScheduleDate } from '../utils/ScheduleDate';
-import TimeRange from './TimeRange';
+import { DateTimeCalculator } from '../../utils/DateTimeCalculator';
+import { ScheduleDate } from '../../utils/ScheduleDate';
+import TimeRange from '../shared/TimeRange';
 
 export interface TimetableListHeaderProps {
   timetableDate: ScheduleDate;

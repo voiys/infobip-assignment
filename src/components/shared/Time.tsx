@@ -1,7 +1,7 @@
 import { Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Time as TimeType } from '../types/Time';
-import { Format } from '../utils/Format';
+import { Time as TimeType } from '../../types/Time';
+import { Format } from '../../utils/Format';
 
 export interface TimeProps {
   time: TimeType;

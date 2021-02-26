@@ -1,10 +1,10 @@
 import { List, ListIcon, ListItem } from '@chakra-ui/react';
 import { FC } from 'react';
-import { DateTimeCalculator } from '../utils/DateTimeCalculator';
-import TimeRange from './TimeRange';
+import { Appointments } from '../../types/Common';
+import { AppointmentType } from '../../utils/AppointmentType';
 import { CgShapeCircle } from 'react-icons/cg';
-import { AppointmentType } from '../utils/AppointmentType';
-import { Appointments } from '../types/Common';
+import TimeRange from '../shared/TimeRange';
+import { DateTimeCalculator } from '../../utils/DateTimeCalculator';
 
 export interface TimetableListBodyProps {
   appointments: Appointments;

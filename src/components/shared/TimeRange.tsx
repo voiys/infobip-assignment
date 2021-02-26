@@ -1,6 +1,6 @@
 import { Flex, FlexProps } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Time } from '../types/Time';
+import { Time } from '../../types/Time';
 import TimeComp from './Time';
 
 export interface TimeRangeProps {

@@ -1,6 +1,6 @@
 import { Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { ScheduleDate } from '../utils/ScheduleDate';
+import { ScheduleDate } from '../../utils/ScheduleDate';
 
 export interface DateProps {
   timetableDate: ScheduleDate;

@@ -1,8 +1,8 @@
 import { Flex } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Appointments } from '../types/Common';
-import { Cursor } from '../types/Cursor';
-import { ScheduleDate } from '../utils/ScheduleDate';
+import { Appointments } from '../../types/Common';
+import { Cursor } from '../../types/Cursor';
+import { ScheduleDate } from '../../utils/ScheduleDate';
 import TimelineBody from './TimelineBody';
 import TimelineHeader from './TimelineHeader';
 
