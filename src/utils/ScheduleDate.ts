@@ -51,8 +51,8 @@ class ScheduleDate extends Date {
   }
 
   get endOfShift(): Time {
-    const beforeEndHour = this.shiftStart[0] + this.config.hourSteps - 1;
-    return [beforeEndHour, 30];
+    const beforeEndHour = this.shiftStart[0] + this.config.hourSteps;
+    return [beforeEndHour, 0];
   }
 
   get breakAppointment() {
@@ -66,20 +66,6 @@ class ScheduleDate extends Date {
   get randomAppointment() {
     return this.createAppointment([8, 0], AppointmentType.Random);
   }
-
-  // get isValidAppointment() {
-  //   // @todo -- implement
-  //   const isDuringBreak = DateTimeCalculator.isDuringAppointment(
-  //     this.time
-  //   );
-  //   const isBeforeBreak = true;
-  //   const isDuringEndOfShift = true;
-
-  //   if (!isDuringBreak && !isBeforeBreak && !isDuringEndOfShift) {
-  //     return true;
-  //   }
-  //   return false;
-  // }
 
   get time(): Time {
     const hours = this.getHours();
@@ -121,14 +107,31 @@ class ScheduleDate extends Date {
     return this.createAppointment(time, AppointmentType.User);
   }
 
-  isIntersecting(otherAppointments: ScheduleDate[]) {
-    const withDuration = DateTimeCalculator.addAppointmentDuration(this);
-    const intersecting = otherAppointments.find(appointment => {
-      console.log(withDuration.date.minuteFactor, appointment.minuteFactor);
-      return withDuration.date.minuteFactor < appointment.minuteFactor;
+  isIntersecting(otherAppointments: Appointment[]) {
+    const {
+      date: { minuteFactor: appointmentStart },
+    } = this.createAppointment();
+    const {
+      date: { minuteFactor: appointmentEnd },
+    } = DateTimeCalculator.addAppointmentDuration(this);
+
+    const intersecting = otherAppointments.filter(appointment => {
+      const {
+        date: { minuteFactor: targetStart },
+      } = appointment;
+      const {
+        date: { minuteFactor: targetEnd },
+      } = DateTimeCalculator.addAppointmentDuration(appointment.date);
+
+      const endIsIntersectingTarget =
+        appointmentEnd > targetStart && appointmentEnd <= targetEnd;
+      const startIsIntersectingTarget =
+        appointmentStart >= targetStart && appointmentStart < targetEnd;
+
+      return startIsIntersectingTarget || endIsIntersectingTarget;
     });
 
-    return intersecting !== undefined;
+    return intersecting.length > 0;
   }
 }
 
