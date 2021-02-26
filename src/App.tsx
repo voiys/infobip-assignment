@@ -1,9 +1,12 @@
 import { ChakraProvider } from '@chakra-ui/react';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import Timetable from './components/Timetable';
 import TimetableInputForm from './components/TimetableInputForm';
 import TimetableUserAppointment from './components/TimetableUserAppointment';
+import { Appointment } from './types/Appointment';
+import { Cursor } from './types/Cursor';
 import { AppointmentType } from './utils/AppointmentType';
+import { DateTimeCalculator } from './utils/DateTimeCalculator';
 import { OffsetDate } from './utils/OffsetDate';
 import { ScheduleDate } from './utils/ScheduleDate';
 
@@ -16,10 +19,16 @@ const App: FC = () => {
     tomorrow.endOfShiftAppointment,
   ]);
   const [userAppointment, setUserAppointment] = useState<
-    ScheduleDate | undefined
+    Appointment | undefined
   >(undefined);
+  const [cursor, setCursor] = useState<Cursor>({
+    color: 'red.200',
+    length: DateTimeCalculator.addAppointmentDuration(tomorrow).date
+      .minuteFactor,
+    position: 0,
+  });
 
-  const addAppointment = (appointment: ScheduleDate) => {
+  const addAppointment = (appointment: Appointment) => {
     // add validation here
 
     setUserAppointment(appointment);
@@ -37,12 +46,18 @@ const App: FC = () => {
     }
   };
 
+  useEffect(() => {}, []);
+
   return (
     <ChakraProvider resetCSS>
-      <Timetable timetableDate={tomorrow} appointments={appointments} />
+      <Timetable
+        timetableDate={tomorrow}
+        appointments={appointments}
+        cursor={cursor}
+      />
       {userAppointment ? (
         <TimetableUserAppointment
-          appointment={userAppointment}
+          timetableDate={userAppointment.date}
           removeAppointment={removeAppointment}
         />
       ) : (
