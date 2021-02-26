@@ -46,7 +46,17 @@ const App: FC = () => {
     }
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    const newCursorPosition = tomorrow.createAppointment([
+      parseInt(hours),
+      parseInt(minutes),
+    ]).date.minuteFactor;
+
+    setCursor(oldCursor => ({
+      ...oldCursor,
+      position: newCursorPosition,
+    }));
+  }, [hours, minutes]);
 
   return (
     <ChakraProvider resetCSS>
