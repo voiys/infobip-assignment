@@ -1,3 +1,4 @@
+import { AppointmentType } from '../utils/AppointmentType';
 import { ScheduleDate } from '../utils/ScheduleDate';
 
 interface Appointment {
