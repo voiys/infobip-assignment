@@ -58,7 +58,7 @@ const Timetable: FC<TimetableProps> = ({
           19:00
         </Text>
       </Flex>
-      <Grid templateColumns='repeat(72, 1fr)' templateRows='50px'>
+      <Grid templateColumns='repeat(72, minmax(5px, 15px))' templateRows='50px'>
         {Array.from({ length: 72 }).map((_, i) => (
           <GridItem
             key={i}
@@ -79,9 +79,7 @@ const Timetable: FC<TimetableProps> = ({
                 ? chakraTheme.colors.red[100]
                 : 'white'
             }
-          >
-            {i}
-          </GridItem>
+          />
         ))}
       </Grid>
     </VStack>
