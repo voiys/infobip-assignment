@@ -4,10 +4,12 @@ import { Weekday } from './Weekday';
 import { scheduleDateConfig } from './config';
 import { OffsetDate } from './OffsetDate';
 import { PredicateDeterminator } from './PredicateDeterminator';
-import { DateTimeCalculator } from './DateTimeCalculator';
+import { AppointmentType } from './AppointmentType';
 
 class ScheduleDate extends Date {
   config: ScheduleDateConfig;
+  type: AppointmentType | undefined;
+
   constructor(
     date: OffsetDate | ScheduleDate,
     config: ScheduleDateConfig = scheduleDateConfig
@@ -53,11 +55,16 @@ class ScheduleDate extends Date {
   }
 
   get breakAppointment() {
-    return this.createAppointment(this.breakTime);
+    return this.createAppointment(this.breakTime, AppointmentType.Break);
   }
 
   get endOfShiftAppointment() {
-    return this.createAppointment(this.endOfShift);
+    return this.createAppointment(this.endOfShift, AppointmentType.EndOfShift);
+  }
+
+  get randomAppointment() {
+    // @todo -- implement random time generation
+    return this.createAppointment([8, 0], AppointmentType.Random);
   }
 
   // get isValidAppointment() {
@@ -93,7 +100,10 @@ class ScheduleDate extends Date {
     return factor;
   }
 
-  createAppointment(time?: Time) {
+  createAppointment(
+    time?: Time,
+    type: AppointmentType = AppointmentType.Random
+  ) {
     const appointment = new ScheduleDate(this);
 
     if (time) {
@@ -101,7 +111,13 @@ class ScheduleDate extends Date {
       appointment.setHours(hours, minutes);
     }
 
+    appointment.type = type;
+
     return appointment;
+  }
+
+  createUserAppointment(time: Time) {
+    return this.createAppointment(time, AppointmentType.User);
   }
 }
 
