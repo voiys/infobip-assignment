@@ -34,9 +34,9 @@ const App: FC = () => {
     position: 0,
     isIntersecting: false,
   });
-  const [invalid, setInvalid] = useState<AppointmentType | undefined>(
-    undefined
-  );
+  const [invalidMessage, setInvalidMessage] = useState<
+    AppointmentType | undefined
+  >(undefined);
 
   const addAppointment = (appointment: Appointment) => {
     setUserAppointment(appointment);
@@ -68,9 +68,9 @@ const App: FC = () => {
     if (cursorIsIntersecting) {
       const appointmentType = appointmentIntersection[0].type; // @todo -- interpret this
 
-      setInvalid(appointmentType);
+      setInvalidMessage(appointmentType);
     } else {
-      if (invalid !== undefined) setInvalid(undefined);
+      if (invalidMessage !== undefined) setInvalidMessage(undefined);
     }
 
     setCursor(oldCursor => ({
@@ -78,7 +78,7 @@ const App: FC = () => {
       position: newCursorPosition,
       isIntersecting: cursorIsIntersecting,
     }));
-  }, [hours, minutes, invalid, appointments]);
+  }, [hours, minutes, invalidMessage, appointments]);
 
   return (
     <ChakraProvider resetCSS>
@@ -94,7 +94,7 @@ const App: FC = () => {
         />
       ) : (
         <TimetableInputForm
-          userAppointmentValid={invalid}
+          invalidMessage={invalidMessage}
           appointments={appointments}
           timetableDate={tomorrow}
           hoursValue={hours}

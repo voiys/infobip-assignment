@@ -1,4 +1,4 @@
-import { Box, Button } from '@chakra-ui/react';
+import { Box, Button, Flex, Tooltip } from '@chakra-ui/react';
 import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
 import { Time } from '../types/Time';
 import { Appointment } from '../types/Appointment';
@@ -16,7 +16,7 @@ export interface TimetableInputFormProps {
   setMinutes: Dispatch<SetStateAction<string>>;
   addAppointment: (appointment: Appointment) => void;
   appointments: Appointment[];
-  userAppointmentValid: AppointmentType | undefined;
+  invalidMessage: AppointmentType | undefined;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({
@@ -27,7 +27,7 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
   timetableDate,
   addAppointment,
   appointments,
-  userAppointmentValid,
+  invalidMessage,
 }) => {
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
@@ -42,30 +42,34 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
   };
 
   return (
-    <MotionContainer
-      as='form'
-      onSubmit={handleSubmit}
-      animate={{
-        background:
-          userAppointmentValid !== undefined
-            ? chakraTheme.colors.red[100]
-            : chakraTheme.colors.white,
-      }}
-    >
-      <TimetableInput
-        timetableDate={timetableDate}
-        value={hoursValue}
-        setValue={setHours}
-        type='hour'
-      />
-      <TimetableInput
-        timetableDate={timetableDate}
-        value={minutesValue}
-        setValue={setMinutes}
-        type='minute'
-      />
-      <Button type='submit'>Add appointment</Button>
-    </MotionContainer>
+    <Flex position='relative'>
+      <Tooltip isOpen={invalidMessage !== undefined} label='hi' placement='top'>
+        <MotionContainer
+          as='form'
+          onSubmit={handleSubmit}
+          animate={{
+            background:
+              invalidMessage !== undefined
+                ? chakraTheme.colors.red[100]
+                : chakraTheme.colors.white,
+          }}
+        >
+          <TimetableInput
+            timetableDate={timetableDate}
+            value={hoursValue}
+            setValue={setHours}
+            type='hour'
+          />
+          <TimetableInput
+            timetableDate={timetableDate}
+            value={minutesValue}
+            setValue={setMinutes}
+            type='minute'
+          />
+          <Button type='submit'>Add appointment</Button>
+        </MotionContainer>
+      </Tooltip>
+    </Flex>
   );
 };
 
