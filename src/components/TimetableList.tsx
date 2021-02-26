@@ -3,8 +3,8 @@ import { FC } from 'react';
 import { Appointment } from '../types/Appointment';
 import { AppointmentType } from '../utils/AppointmentType';
 import { ScheduleDate } from '../utils/ScheduleDate';
-import TimetableBody from './TimetableBody';
-import TimetableHeader from './TimetableHeader';
+import TimetableListBody from './TimetableListBody';
+import TimetableListHeader from './TimetableListHeader';
 
 export interface TimetableListProps {
   timetableDate: ScheduleDate;
@@ -16,10 +16,15 @@ const TimetableList: FC<TimetableListProps> = ({
   appointments,
 }) => {
   return (
-    <VStack>
-      <TimetableHeader timetableDate={timetableDate} />
-      <TimetableBody
-        timetableDate={timetableDate}
+    <VStack
+      background='white'
+      border='1px'
+      borderRadius='md'
+      padding='4'
+      display={{ lg: 'none' }}
+    >
+      <TimetableListHeader timetableDate={timetableDate} />
+      <TimetableListBody
         appointments={appointments.filter(
           appointment =>
             appointment.type !== AppointmentType.Break &&

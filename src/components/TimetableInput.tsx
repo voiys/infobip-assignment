@@ -47,6 +47,8 @@ const TimetableInput: FC<TimetableInputProps> = ({
 
   return (
     <NumberInput
+      size='sm'
+      maxW='100px'
       defaultValue={defaultValue}
       min={min}
       max={max}

@@ -8,7 +8,13 @@ export interface TimeProps {
 }
 
 const Time: FC<TimeProps> = ({ time }) => {
-  const [hours, minutes] = time;
+  let hours, minutes;
+  if (time) {
+    [hours, minutes] = time;
+  } else {
+    hours = 0;
+    minutes = 0;
+  }
   return (
     <Text>
       {Format.padWithZero(hours)}

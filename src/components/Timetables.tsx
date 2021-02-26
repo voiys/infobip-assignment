@@ -1,5 +1,7 @@
+import { Flex } from '@chakra-ui/react';
 import { FC, useState } from 'react';
 import { Appointment } from '../types/Appointment';
+import { AppointmentType } from '../utils/AppointmentType';
 import { OffsetDate } from '../utils/OffsetDate';
 import { RandomGenerator } from '../utils/RandomGenerator';
 import { ScheduleDate } from '../utils/ScheduleDate';
@@ -29,14 +31,18 @@ const Timetables: FC = () => {
   const removeAppUserAppointment = (toBeRemoved: Appointment | undefined) => {
     if (toBeRemoved) {
       const existingForTheDate = userAppointments.find(
-        appointment => appointment.date.getDate() === toBeRemoved.date.getDate()
+        appointment =>
+          appointment.date.getDate() === toBeRemoved.date.getDate() &&
+          appointment.type === AppointmentType.User
       );
 
       if (existingForTheDate) {
         setUserAppointments(
           userAppointments.filter(
             appointment =>
-              appointment.date.getDate() === existingForTheDate.date.getDate()
+              appointment.date.getDate() ===
+                existingForTheDate.date.getDate() &&
+              appointment.type !== AppointmentType.User
           )
         );
       }
@@ -44,7 +50,7 @@ const Timetables: FC = () => {
   };
 
   return (
-    <>
+    <Flex direction='column' align='center'>
       {weekFromTomorrow.map((day, i) =>
         day.isWorkingDay ? (
           <Timetable
@@ -64,7 +70,7 @@ const Timetables: FC = () => {
           <NotWorking key={i} timetableDate={day} />
         )
       )}
-    </>
+    </Flex>
   );
 };
 

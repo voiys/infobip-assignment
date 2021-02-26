@@ -98,6 +98,14 @@ class ScheduleDate extends Date {
     );
   }
 
+  get truncatedDay() {
+    return Weekday[this.getDay()].toUpperCase().slice(0, 3);
+  }
+
+  get dateInfo(): [date: number, month: number] {
+    return [this.getDate(), this.getMonth() + 1];
+  }
+
   get time(): Time {
     const hours = this.getHours();
     const minutes = this.getMinutes();

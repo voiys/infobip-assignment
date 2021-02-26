@@ -1,8 +1,6 @@
-import { CloseButton, Flex } from '@chakra-ui/react';
+import { CloseButton, HStack, Text } from '@chakra-ui/react';
 import { FC } from 'react';
-import { DateTimeCalculator } from '../utils/DateTimeCalculator';
 import { ScheduleDate } from '../utils/ScheduleDate';
-import TimeRange from './TimeRange';
 
 export interface TimetableUserAppointmentProps {
   timetableDate: ScheduleDate;
@@ -10,21 +8,13 @@ export interface TimetableUserAppointmentProps {
 }
 
 const TimetableUserAppointment: FC<TimetableUserAppointmentProps> = ({
-  timetableDate,
   removeAppointment,
 }) => {
-  const { time } = timetableDate;
-
   return (
-    <Flex>
+    <HStack>
       <CloseButton onClick={removeAppointment} />
-      <TimeRange
-        time1={time}
-        time2={
-          DateTimeCalculator.addAppointmentDuration(timetableDate).date.time
-        }
-      />
-    </Flex>
+      <Text>Remove appointment</Text>
+    </HStack>
   );
 };
 

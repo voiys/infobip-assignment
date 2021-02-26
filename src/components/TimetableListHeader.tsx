@@ -4,14 +4,14 @@ import { DateTimeCalculator } from '../utils/DateTimeCalculator';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimeRange from './TimeRange';
 
-export interface TimetableHeaderProps {
+export interface TimetableListHeaderProps {
   timetableDate: ScheduleDate;
 }
 
-const TimetableHeader: FC<TimetableHeaderProps> = ({ timetableDate }) => {
+const TimetableList: FC<TimetableListHeaderProps> = ({ timetableDate }) => {
   return (
-    <HStack border='1px' spacing='gap-md'>
-      <Box>
+    <HStack spacing='4'>
+      <Box fontWeight='bold'>
         Break:{' '}
         <TimeRange
           time1={timetableDate.breakAppointment.date.time}
@@ -26,4 +26,4 @@ const TimetableHeader: FC<TimetableHeaderProps> = ({ timetableDate }) => {
   );
 };
 
-export default TimetableHeader;
+export default TimetableList;

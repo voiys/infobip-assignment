@@ -40,7 +40,7 @@ const useTimetable = (
         appointments.filter(
           appointment =>
             appointment.type !== AppointmentType.User &&
-            appointment.date.getDate() !== userAppointment.date.getDate()
+            appointment.date.getDate() === userAppointment.date.getDate()
         )
       );
     }
