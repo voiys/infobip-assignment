@@ -7,6 +7,7 @@ import { PredicateDeterminator } from './PredicateDeterminator';
 import { AppointmentType } from './AppointmentType';
 import { DateTimeCalculator } from './DateTimeCalculator';
 import { Appointment } from '../types/Appointment';
+import { RandomGenerator } from './RandomGenerator';
 
 class ScheduleDate extends Date {
   config: ScheduleDateConfig;
@@ -64,7 +65,37 @@ class ScheduleDate extends Date {
   }
 
   get randomAppointment() {
-    return this.createAppointment([8, 0], AppointmentType.Random);
+    const [startHours, startMinutes] = this.shiftStart;
+    const [endHours] = this.endOfShift;
+    const { hourStep, minuteStep, minuteSteps } = this.config;
+    const randomHours = RandomGenerator.integerWithStep(
+      startHours,
+      endHours,
+      hourStep
+    );
+    const randomMinutes = RandomGenerator.integerWithStep(
+      startMinutes,
+      (minuteSteps - 1) * minuteStep,
+      minuteStep
+    );
+
+    return this.createAppointment(
+      [randomHours, randomMinutes],
+      AppointmentType.Random
+    );
+  }
+
+  get isValidRandomDate() {
+    const [hours] = this.time;
+    const [startHours] = this.shiftStart;
+    const [endHours] = this.endOfShift;
+    const notWhileDefaultAppointments =
+      this.intersectionWith([this.breakAppointment, this.endOfShiftAppointment])
+        .length === 0;
+
+    return (
+      hours >= startHours && hours < endHours && notWhileDefaultAppointments
+    );
   }
 
   get time(): Time {
