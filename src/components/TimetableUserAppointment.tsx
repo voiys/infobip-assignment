@@ -5,22 +5,24 @@ import { ScheduleDate } from '../utils/ScheduleDate';
 import TimeRange from './TimeRange';
 
 export interface TimetableUserAppointmentProps {
-  appointment: ScheduleDate;
+  timetableDate: ScheduleDate;
   removeAppointment: () => void;
 }
 
 const TimetableUserAppointment: FC<TimetableUserAppointmentProps> = ({
-  appointment,
+  timetableDate,
   removeAppointment,
 }) => {
-  const { time } = appointment;
+  const { time } = timetableDate;
 
   return (
     <Flex>
       <CloseButton onClick={removeAppointment} />
       <TimeRange
         time1={time}
-        time2={DateTimeCalculator.addAppointmentDuration(appointment).time}
+        time2={
+          DateTimeCalculator.addAppointmentDuration(timetableDate).date.time
+        }
       />
     </Flex>
   );

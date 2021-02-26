@@ -1,6 +1,7 @@
 import { Box, Button } from '@chakra-ui/react';
 import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
 import { Time } from '../types/Time';
+import { Appointment } from '../types/Appointment';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimetableInput from './TimetableInput';
 
@@ -10,7 +11,7 @@ export interface TimetableInputFormProps {
   minutesValue: string;
   setHours: Dispatch<SetStateAction<string>>;
   setMinutes: Dispatch<SetStateAction<string>>;
-  addAppointment: (appointment: ScheduleDate) => void;
+  addAppointment: (appointment: Appointment) => void;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({

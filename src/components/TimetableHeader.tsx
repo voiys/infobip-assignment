@@ -20,9 +20,10 @@ const TimetableHeader: FC<TimetableHeaderProps> = ({ timetableDate }) => {
         {unavailableAppointments.map((appointment, i) => (
           <ListItem key={i}>
             <TimeRange
-              time1={appointment.time}
+              time1={appointment.date.time}
               time2={
-                DateTimeCalculator.addAppointmentDuration(appointment).time
+                DateTimeCalculator.addAppointmentDuration(appointment.date).date
+                  .time
               }
             />
           </ListItem>

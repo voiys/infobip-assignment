@@ -5,10 +5,11 @@ import { scheduleDateConfig } from './config';
 import { OffsetDate } from './OffsetDate';
 import { PredicateDeterminator } from './PredicateDeterminator';
 import { AppointmentType } from './AppointmentType';
+import { DateTimeCalculator } from './DateTimeCalculator';
+import { Appointment } from '../types/Appointment';
 
 class ScheduleDate extends Date {
   config: ScheduleDateConfig;
-  type: AppointmentType | undefined;
 
   constructor(
     date: OffsetDate | ScheduleDate,
@@ -63,7 +64,6 @@ class ScheduleDate extends Date {
   }
 
   get randomAppointment() {
-    // @todo -- implement random time generation
     return this.createAppointment([8, 0], AppointmentType.Random);
   }
 
@@ -104,20 +104,31 @@ class ScheduleDate extends Date {
     time?: Time,
     type: AppointmentType = AppointmentType.Random
   ) {
-    const appointment = new ScheduleDate(this);
+    const appointment: Appointment = {
+      type,
+      date: new ScheduleDate(this),
+    };
 
     if (time) {
       const [hours, minutes] = time;
-      appointment.setHours(hours, minutes);
+      appointment.date.setHours(hours, minutes);
     }
-
-    appointment.type = type;
 
     return appointment;
   }
 
   createUserAppointment(time: Time) {
     return this.createAppointment(time, AppointmentType.User);
+  }
+
+  isIntersecting(otherAppointments: ScheduleDate[]) {
+    const withDuration = DateTimeCalculator.addAppointmentDuration(this);
+    const intersecting = otherAppointments.find(appointment => {
+      console.log(withDuration.date.minuteFactor, appointment.minuteFactor);
+      return withDuration.date.minuteFactor < appointment.minuteFactor;
+    });
+
+    return intersecting !== undefined;
   }
 }
 
