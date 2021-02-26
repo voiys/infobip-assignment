@@ -72,7 +72,14 @@ const useTimetable = (
       isIntersecting: cursorIsIntersecting,
       color: newCursorColor,
     }));
-  }, [hours, minutes, invalidMessage, appointments, timetableDate]);
+  }, [
+    hours,
+    minutes,
+    invalidMessage,
+    appointments,
+    timetableDate,
+    userAppointment,
+  ]);
 
   return {
     hours,
