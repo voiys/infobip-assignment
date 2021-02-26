@@ -18,12 +18,10 @@ class RandomGenerator {
       day.breakAppointment,
     ]);
 
-    const appointments = this.generateAppointments(onlyWorkingDays).slice(
-      0,
-      15
-    );
-
-    console.log(appointments.length);
+    const appointments = this.generateAppointments(
+      onlyWorkingDays,
+      numberOfAppointments
+    ).slice(0, numberOfAppointments);
 
     return appointments.concat(workingDaysWithDefaultAppointments);
   }
