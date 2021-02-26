@@ -3,6 +3,7 @@ import { FC } from 'react';
 import { Appointment } from '../types/Appointment';
 import { Cursor } from '../types/Cursor';
 import { ScheduleDate } from '../utils/ScheduleDate';
+import { chakraTheme } from '../utils/theme';
 import TimetableBody from './TimetableBody';
 import TimetableHeader from './TimetableHeader';
 
@@ -49,14 +50,14 @@ const Timetable: FC<TimetableProps> = ({
             borderLeft={i === 0 ? '1px' : '0'}
             borderRight='1px'
             bg={
-              appointments.find(
-                appointment =>
-                  i >= appointment.date.minuteFactor &&
-                  i < appointment.date.minuteFactor + 6
-              )
-                ? 'blue.100'
-                : i >= cursor.position && i < cursor.position + cursor.length
+              i >= cursor.position && i < cursor.position + cursor.length
                 ? cursor.color
+                : appointments.find(
+                    appointment =>
+                      i >= appointment.date.minuteFactor &&
+                      i < appointment.date.minuteFactor + 6
+                  )
+                ? chakraTheme.colors.red[100]
                 : 'white'
             }
           >

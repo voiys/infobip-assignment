@@ -4,6 +4,9 @@ import { Time } from '../types/Time';
 import { Appointment } from '../types/Appointment';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimetableInput from './TimetableInput';
+import { InvalidType } from '../utils/InvalidType';
+import MotionContainer from './MotionContainer';
+import { chakraTheme } from '../utils/theme';
 
 export interface TimetableInputFormProps {
   timetableDate: ScheduleDate;
@@ -12,6 +15,8 @@ export interface TimetableInputFormProps {
   setHours: Dispatch<SetStateAction<string>>;
   setMinutes: Dispatch<SetStateAction<string>>;
   addAppointment: (appointment: Appointment) => void;
+  appointments: Appointment[];
+  userAppointmentValid: InvalidType | undefined;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({
@@ -21,19 +26,33 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
   setMinutes,
   timetableDate,
   addAppointment,
+  appointments,
+  userAppointmentValid,
 }) => {
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
 
     const time: Time = [parseInt(hoursValue), parseInt(minutesValue)];
 
-    // @todo - add validation here
+    const newAppointment = timetableDate.createUserAppointment(time);
 
-    addAppointment(timetableDate.createUserAppointment(time));
+    if (!(newAppointment.date.intersectionWith(appointments).length > 0)) {
+      addAppointment(newAppointment);
+    }
   };
 
   return (
-    <Box as='form' onSubmit={handleSubmit}>
+    <MotionContainer
+      as='form'
+      onSubmit={handleSubmit}
+      animate={{
+        background:
+          userAppointmentValid !== undefined &&
+          userAppointmentValid === InvalidType.BreakIntersecting
+            ? chakraTheme.colors.red[100]
+            : chakraTheme.colors.white,
+      }}
+    >
       <TimetableInput
         timetableDate={timetableDate}
         value={hoursValue}
@@ -47,7 +66,7 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
         type='minute'
       />
       <Button type='submit'>Add appointment</Button>
-    </Box>
+    </MotionContainer>
   );
 };
 

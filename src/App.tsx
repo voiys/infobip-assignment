@@ -7,30 +7,36 @@ import { Appointment } from './types/Appointment';
 import { Cursor } from './types/Cursor';
 import { AppointmentType } from './utils/AppointmentType';
 import { DateTimeCalculator } from './utils/DateTimeCalculator';
+import { InvalidType } from './utils/InvalidType';
 import { OffsetDate } from './utils/OffsetDate';
+import { RandomGenerator } from './utils/RandomGenerator';
 import { ScheduleDate } from './utils/ScheduleDate';
 
 const App: FC = () => {
-  const tomorrow = new ScheduleDate(new OffsetDate(1));
+  const tomorrow = new ScheduleDate(new OffsetDate(3));
+  const tomorrowAppointments = RandomGenerator.appointmentsForWeek().filter(
+    appointment => {
+      const aDate = appointment.date.getDate();
+      const tDate = tomorrow.getDate();
+      const cond = aDate === tDate;
+      return cond;
+    }
+  );
   const [hours, setHours] = useState(tomorrow.shiftStart[0].toString());
   const [minutes, setMinutes] = useState(tomorrow.shiftStart[1].toString());
-  const [appointments, setAppointments] = useState([
-    tomorrow.breakAppointment,
-    tomorrow.endOfShiftAppointment,
-  ]);
+  const [appointments, setAppointments] = useState(tomorrowAppointments);
   const [userAppointment, setUserAppointment] = useState<
     Appointment | undefined
   >(undefined);
   const [cursor, setCursor] = useState<Cursor>({
-    color: 'red.200',
+    color: 'blue.100',
     length: DateTimeCalculator.addAppointmentDuration(tomorrow).date
       .minuteFactor,
     position: 0,
   });
+  const [invalid, setInvalid] = useState<InvalidType | undefined>(undefined);
 
   const addAppointment = (appointment: Appointment) => {
-    // add validation here
-
     setUserAppointment(appointment);
     setAppointments(appointments => [...appointments, appointment]);
   };
@@ -47,16 +53,29 @@ const App: FC = () => {
   };
 
   useEffect(() => {
-    const newCursorPosition = tomorrow.createAppointment([
+    const cursorOnAppointment = tomorrow.createAppointment([
       parseInt(hours),
       parseInt(minutes),
-    ]).date.minuteFactor;
+    ]);
+    const newCursorPosition = cursorOnAppointment.date.minuteFactor;
+    const appointmentIntersection = cursorOnAppointment.date.intersectionWith(
+      appointments
+    );
+    const cursorIsIntersecting = appointmentIntersection.length > 0;
+
+    if (cursorIsIntersecting) {
+      const appointmentType = appointmentIntersection[0].type; // @todo -- interpret this
+
+      setInvalid(InvalidType.BreakIntersecting);
+    } else {
+      if (invalid !== undefined) setInvalid(undefined);
+    }
 
     setCursor(oldCursor => ({
       ...oldCursor,
       position: newCursorPosition,
     }));
-  }, [hours, minutes]);
+  }, [hours, minutes, invalid, appointments]);
 
   return (
     <ChakraProvider resetCSS>
@@ -72,6 +91,8 @@ const App: FC = () => {
         />
       ) : (
         <TimetableInputForm
+          userAppointmentValid={invalid}
+          appointments={appointments}
           timetableDate={tomorrow}
           hoursValue={hours}
           minutesValue={minutes}
