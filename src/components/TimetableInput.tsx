@@ -56,7 +56,7 @@ const TimetableInput: FC<TimetableInputProps> = ({
       onChange={handleChange}
       onBlur={handleBlur}
     >
-      <NumberInputField />
+      <NumberInputField bg='white' />
       <NumberInputStepper>
         <NumberIncrementStepper />
         <NumberDecrementStepper />
