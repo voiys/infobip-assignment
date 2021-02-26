@@ -2,6 +2,7 @@ import { Grid, GridItem, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Appointment } from '../types/Appointment';
 import { Cursor } from '../types/Cursor';
+import { AppointmentType } from '../utils/AppointmentType';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import { chakraTheme } from '../utils/theme';
 import TimetableBody from './TimetableBody';
@@ -23,7 +24,9 @@ const Timetable: FC<TimetableProps> = ({
       <TimetableHeader timetableDate={timetableDate} />
       <TimetableBody
         timetableDate={timetableDate}
-        appointments={appointments}
+        appointments={appointments.filter(
+          appointment => appointment.type !== AppointmentType.Break
+        )}
       />
       <Grid templateColumns='repeat(72, 1fr)' templateRows='50px 50px'>
         {[
