@@ -1,8 +1,9 @@
-import { Grid, GridItem, VStack } from '@chakra-ui/react';
+import { Flex, Grid, GridItem, Text, VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { Appointment } from '../types/Appointment';
 import { Cursor } from '../types/Cursor';
 import { AppointmentType } from '../utils/AppointmentType';
+import { DateTimeCalculator } from '../utils/DateTimeCalculator';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import { chakraTheme } from '../utils/theme';
 import TimetableBody from './TimetableBody';
@@ -20,33 +21,44 @@ const Timetable: FC<TimetableProps> = ({
   cursor,
 }) => {
   return (
-    <VStack>
+    <VStack maxW='max-content' mx='auto'>
       <TimetableHeader timetableDate={timetableDate} />
       <TimetableBody
         timetableDate={timetableDate}
         appointments={appointments.filter(
-          appointment => appointment.type !== AppointmentType.Break
+          appointment =>
+            appointment.type !== AppointmentType.Break &&
+            appointment.type !== AppointmentType.EndOfShift
         )}
       />
-      <Grid templateColumns='repeat(72, 1fr)' templateRows='50px 50px'>
-        {[
-          '13:00',
-          '13:30',
-          '14:00',
-          '14:30',
-          '15:00',
-          '15:30',
-          '16:00',
-          '16:30',
-          '17:00',
-          '17:30',
-          '18:00',
-          '18:30',
-        ].map(i => (
-          <GridItem key={i} colSpan={6}>
-            {i}
-          </GridItem>
-        ))}
+      <Flex w='full' position='relative'>
+        <Grid templateColumns='repeat(72, 1fr)' templateRows='50px' w='full'>
+          {Array.from({ length: 6 })
+            .flatMap((_, i) => [
+              `${timetableDate.shiftStart[0] + i}:00`,
+              `${timetableDate.shiftStart[0] + i}:30`,
+            ])
+            .map(i => (
+              <GridItem
+                key={i}
+                colSpan={6}
+                textAlign='center'
+                transform='translateX(-50%)'
+              >
+                {i}
+              </GridItem>
+            ))}
+        </Grid>
+        <Text
+          textAlign='center'
+          transform='translateX(50%)'
+          position='absolute'
+          right='0'
+        >
+          19:00
+        </Text>
+      </Flex>
+      <Grid templateColumns='repeat(72, 1fr)' templateRows='50px'>
         {Array.from({ length: 72 }).map((_, i) => (
           <GridItem
             key={i}
@@ -58,7 +70,11 @@ const Timetable: FC<TimetableProps> = ({
                 : appointments.find(
                     appointment =>
                       i >= appointment.date.minuteFactor &&
-                      i < appointment.date.minuteFactor + 6
+                      i <
+                        appointment.date.minuteFactor +
+                          DateTimeCalculator.addAppointmentDuration(
+                            timetableDate
+                          ).date.minuteFactor
                   )
                 ? chakraTheme.colors.red[100]
                 : 'white'
