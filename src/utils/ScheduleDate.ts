@@ -107,7 +107,7 @@ class ScheduleDate extends Date {
     return this.createAppointment(time, AppointmentType.User);
   }
 
-  isIntersecting(otherAppointments: Appointment[]) {
+  intersectionWith(otherAppointments: Appointment[]) {
     const {
       date: { minuteFactor: appointmentStart },
     } = this.createAppointment();
@@ -131,7 +131,7 @@ class ScheduleDate extends Date {
       return startIsIntersectingTarget || endIsIntersectingTarget;
     });
 
-    return intersecting.length > 0;
+    return intersecting;
   }
 }
 
