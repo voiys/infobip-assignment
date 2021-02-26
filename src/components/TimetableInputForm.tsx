@@ -1,4 +1,4 @@
-import { Box, Button, Flex, Tooltip } from '@chakra-ui/react';
+import { Button, Flex } from '@chakra-ui/react';
 import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
 import { Time } from '../types/Time';
 import { Appointment } from '../types/Appointment';
@@ -41,19 +41,37 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
     }
   };
 
+  const messageExists = invalidMessage !== undefined;
+  let tooltipLabel;
+
+  if (messageExists) {
+    switch (invalidMessage) {
+      case AppointmentType.Break:
+        tooltipLabel = "We're on break.";
+        break;
+      case AppointmentType.EndOfShift:
+        tooltipLabel = 'We go home on time.';
+        break;
+      case AppointmentType.Random:
+        tooltipLabel = 'An appointment already exists at the time.';
+        break;
+    }
+  }
+
   return (
     <Flex position='relative'>
-      <Tooltip isOpen={invalidMessage !== undefined} label='hi' placement='top'>
-        <MotionContainer
-          as='form'
-          onSubmit={handleSubmit}
-          animate={{
-            background:
-              invalidMessage !== undefined
-                ? chakraTheme.colors.red[100]
-                : chakraTheme.colors.white,
-          }}
-        >
+      <MotionContainer
+        p='4'
+        as='form'
+        onSubmit={handleSubmit}
+        animate={{
+          background:
+            invalidMessage !== undefined
+              ? chakraTheme.colors.red[100]
+              : chakraTheme.colors.white,
+        }}
+      >
+        <Flex justify='space-between' mb='4'>
           <TimetableInput
             timetableDate={timetableDate}
             value={hoursValue}
@@ -66,9 +84,11 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
             setValue={setMinutes}
             type='minute'
           />
-          <Button type='submit'>Add appointment</Button>
-        </MotionContainer>
-      </Tooltip>
+        </Flex>
+        <Button display='inline-block' mx='auto' type='submit'>
+          Add appointment
+        </Button>
+      </MotionContainer>
     </Flex>
   );
 };

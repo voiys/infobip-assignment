@@ -10,7 +10,7 @@ export interface TimeRangeProps {
 
 const TimeRange: FC<TimeRangeProps> = ({ time1, time2 }) => {
   return (
-    <Flex>
+    <Flex display='inline-flex'>
       <TimeComp time={time1} /> - <TimeComp time={time2} />
     </Flex>
   );

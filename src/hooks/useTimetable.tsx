@@ -70,7 +70,7 @@ const useTimetable = (
       position: newCursorPosition,
       isIntersecting: cursorIsIntersecting,
     }));
-  }, [hours, minutes, invalidMessage, appointments]);
+  }, [hours, minutes, invalidMessage, appointments, timetableDate]);
 
   return {
     hours,
@@ -80,6 +80,9 @@ const useTimetable = (
     addAppointment,
     removeAppointment,
     invalidMessage,
+    cursor,
+    setHours,
+    setMinutes,
   };
 };
 

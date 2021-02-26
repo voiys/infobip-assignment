@@ -1,5 +1,4 @@
 import { Appointment } from '../types/Appointment';
-import { OffsetDate } from './OffsetDate';
 import { ScheduleDate } from './ScheduleDate';
 
 class RandomGenerator {
@@ -8,12 +7,11 @@ class RandomGenerator {
     return Math.floor(Math.random() * range) * step + min;
   }
 
-  static appointmentsForWeek(numberOfAppointments: number = 15) {
-    const weekFromTomorrow = Array.from({ length: 7 }).map(
-      (_, i) => new ScheduleDate(new OffsetDate(1 + i))
-    );
-
-    const onlyWorkingDays = weekFromTomorrow.filter(day => day.isWorkingDay);
+  static appointmentsForWeek(
+    week: ScheduleDate[],
+    numberOfAppointments: number = 15
+  ) {
+    const onlyWorkingDays = week.filter(day => day.isWorkingDay);
     const workingDaysWithDefaultAppointments = onlyWorkingDays.flatMap(day => [
       day.breakAppointment,
       day.endOfShiftAppointment,

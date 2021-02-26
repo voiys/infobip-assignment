@@ -1,4 +1,4 @@
-import { List, ListItem, Text } from '@chakra-ui/react';
+import { Box, HStack } from '@chakra-ui/react';
 import { FC } from 'react';
 import { DateTimeCalculator } from '../utils/DateTimeCalculator';
 import { ScheduleDate } from '../utils/ScheduleDate';
@@ -9,27 +9,20 @@ export interface TimetableHeaderProps {
 }
 
 const TimetableHeader: FC<TimetableHeaderProps> = ({ timetableDate }) => {
-  const unavailableAppointments = [
-    timetableDate.breakAppointment,
-    timetableDate.endOfShiftAppointment,
-  ];
   return (
-    <>
-      <Text>Unavailable appointments</Text>
-      <List>
-        {unavailableAppointments.map((appointment, i) => (
-          <ListItem key={i}>
-            <TimeRange
-              time1={appointment.date.time}
-              time2={
-                DateTimeCalculator.addAppointmentDuration(appointment.date).date
-                  .time
-              }
-            />
-          </ListItem>
-        ))}
-      </List>
-    </>
+    <HStack border='1px' spacing='gap-md'>
+      <Box>
+        Break:{' '}
+        <TimeRange
+          time1={timetableDate.breakAppointment.date.time}
+          time2={
+            DateTimeCalculator.addAppointmentDuration(
+              timetableDate.breakAppointment.date
+            ).date.time
+          }
+        />
+      </Box>
+    </HStack>
   );
 };
 
