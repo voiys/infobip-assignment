@@ -47,6 +47,8 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
       as='form'
       onSubmit={handleSubmit}
       p='4'
+      borderRadius='md'
+      bg='white'
       direction='column'
     >
       <HStack spacing='4' mb='4'>

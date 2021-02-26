@@ -18,7 +18,6 @@ const TimetableList: FC<TimetableListProps> = ({
   return (
     <VStack
       background='white'
-      border='1px'
       borderRadius='md'
       padding='4'
       display={{ lg: 'none' }}

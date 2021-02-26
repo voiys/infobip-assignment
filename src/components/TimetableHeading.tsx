@@ -9,7 +9,7 @@ export interface TimetableHeadingProps {
 
 const TimetableHeading: FC<TimetableHeadingProps> = ({ timetableDate }) => {
   return (
-    <Heading fontSize='xl'>
+    <Heading fontSize='xl' bg='white' px='4' py='2' borderRadius='md'>
       <Date timetableDate={timetableDate} />
     </Heading>
   );

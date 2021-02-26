@@ -16,7 +16,10 @@ const TimetableContainer: FC<TimetableContainerProps> = ({
       minW='300px'
       maxW='900px'
       my='10'
-      borderRadius='md'
+      borderRadius={{
+        base: 'none',
+        lg: 'md',
+      }}
       py='5'
       px='10'
       animate={{
