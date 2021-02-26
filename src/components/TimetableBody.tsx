@@ -1,4 +1,4 @@
-import { Flex, VStack } from '@chakra-ui/react';
+import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
 
 const TimetableBody: FC = ({ children }) => {

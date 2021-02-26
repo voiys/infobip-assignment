@@ -1,6 +1,6 @@
 import { Flex } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Appointment } from '../types/Appointment';
+import { Appointments } from '../types/Common';
 import { Cursor } from '../types/Cursor';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimelineBody from './TimelineBody';
@@ -9,7 +9,7 @@ import TimelineHeader from './TimelineHeader';
 export interface TimelineProps {
   timetableDate: ScheduleDate;
   cursor: Cursor;
-  appointments: Appointment[];
+  appointments: Appointments;
 }
 
 const Timeline: FC<TimelineProps> = ({

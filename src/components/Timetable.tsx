@@ -2,6 +2,11 @@ import { Text } from '@chakra-ui/react';
 import { FC } from 'react';
 import { useTimetable } from '../hooks/useTimetable';
 import { Appointment } from '../types/Appointment';
+import {
+  AddAppointmentSignature,
+  Appointments,
+  RemoveAppointmentSignature,
+} from '../types/Common';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import ErrorMessage from './ErrorMessage';
 import Timeline from './Timeline';
@@ -14,10 +19,10 @@ import TimetableUserAppointment from './TimetableUserAppointment';
 
 export interface TimetableProps {
   timetableDate: ScheduleDate;
-  initialAppointments: Appointment[];
-  addAppUserAppointment: (newAppointment: Appointment) => void;
-  removeAppUserAppointment: (toBeRemoved: Appointment | undefined) => void;
-  userAppointments: Appointment[];
+  initialAppointments: Appointments;
+  addAppUserAppointment: AddAppointmentSignature;
+  removeAppUserAppointment: RemoveAppointmentSignature;
+  userAppointments: Appointments;
 }
 
 const Timetable: FC<TimetableProps> = ({

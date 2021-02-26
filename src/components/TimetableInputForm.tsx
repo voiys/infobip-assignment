@@ -1,20 +1,24 @@
 import { Button, Flex, HStack } from '@chakra-ui/react';
-import { Dispatch, FC, FormEventHandler, SetStateAction } from 'react';
+import { FC, FormEventHandler } from 'react';
 import { Time } from '../types/Time';
-import { Appointment } from '../types/Appointment';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimetableInput from './TimetableInput';
-import { AppointmentType } from '../utils/AppointmentType';
+import {
+  AddAppointmentSignature,
+  Appointments,
+  InvalidMessage,
+} from '../types/Common';
+import { SetInputSignature } from '../types/Timetable';
 
 export interface TimetableInputFormProps {
   timetableDate: ScheduleDate;
   hoursValue: string;
   minutesValue: string;
-  setHours: Dispatch<SetStateAction<string>>;
-  setMinutes: Dispatch<SetStateAction<string>>;
-  addAppointment: (appointment: Appointment) => void;
-  appointments: Appointment[];
-  invalidMessage: AppointmentType | undefined;
+  setHours: SetInputSignature;
+  setMinutes: SetInputSignature;
+  addAppointment: AddAppointmentSignature;
+  appointments: Appointments;
+  invalidMessage: InvalidMessage;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({

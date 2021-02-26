@@ -5,7 +5,8 @@ import {
   NumberInputField,
   NumberInputStepper,
 } from '@chakra-ui/react';
-import { Dispatch, FC, FocusEventHandler, SetStateAction } from 'react';
+import { FC, FocusEventHandler } from 'react';
+import { SetInputSignature } from '../types/Timetable';
 import { ScheduleDate } from '../utils/ScheduleDate';
 
 type HourOrMinute = 'hour' | 'minute';
@@ -14,7 +15,7 @@ export interface TimetableInputProps {
   timetableDate: ScheduleDate;
   type: HourOrMinute;
   value: string;
-  setValue: Dispatch<SetStateAction<string>>;
+  setValue: SetInputSignature;
 }
 
 const TimetableInput: FC<TimetableInputProps> = ({

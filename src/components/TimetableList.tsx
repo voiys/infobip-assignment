@@ -1,6 +1,6 @@
 import { VStack } from '@chakra-ui/react';
 import { FC } from 'react';
-import { Appointment } from '../types/Appointment';
+import { Appointments } from '../types/Common';
 import { AppointmentType } from '../utils/AppointmentType';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import TimetableListBody from './TimetableListBody';
@@ -8,7 +8,7 @@ import TimetableListHeader from './TimetableListHeader';
 
 export interface TimetableListProps {
   timetableDate: ScheduleDate;
-  appointments: Appointment[];
+  appointments: Appointments;
 }
 
 const TimetableList: FC<TimetableListProps> = ({

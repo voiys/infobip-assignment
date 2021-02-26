@@ -3,13 +3,13 @@ import { Grid, GridItem, theme } from '@chakra-ui/react';
 import { DateTimeCalculator } from '../utils/DateTimeCalculator';
 import { ScheduleDate } from '../utils/ScheduleDate';
 import { Cursor } from '../types/Cursor';
-import { Appointment } from '../types/Appointment';
 import TimeRange from './TimeRange';
+import { Appointments } from '../types/Common';
 
 export interface TimelineBodyProps {
   timetableDate: ScheduleDate;
   cursor: Cursor;
-  appointments: Appointment[];
+  appointments: Appointments;
 }
 
 const TimelineBody: FC<TimelineBodyProps> = ({
