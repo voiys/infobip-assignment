@@ -16,6 +16,7 @@ class RandomGenerator {
     const onlyWorkingDays = weekFromTomorrow.filter(day => day.isWorkingDay);
     const workingDaysWithDefaultAppointments = onlyWorkingDays.flatMap(day => [
       day.breakAppointment,
+      day.endOfShiftAppointment,
     ]);
 
     const appointments = this.generateAppointments(
