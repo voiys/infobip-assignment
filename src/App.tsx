@@ -7,7 +7,6 @@ import { Appointment } from './types/Appointment';
 import { Cursor } from './types/Cursor';
 import { AppointmentType } from './utils/AppointmentType';
 import { DateTimeCalculator } from './utils/DateTimeCalculator';
-import { InvalidType } from './utils/InvalidType';
 import { OffsetDate } from './utils/OffsetDate';
 import { RandomGenerator } from './utils/RandomGenerator';
 import { ScheduleDate } from './utils/ScheduleDate';
@@ -33,8 +32,11 @@ const App: FC = () => {
     length: DateTimeCalculator.addAppointmentDuration(tomorrow).date
       .minuteFactor,
     position: 0,
+    isIntersecting: false,
   });
-  const [invalid, setInvalid] = useState<InvalidType | undefined>(undefined);
+  const [invalid, setInvalid] = useState<AppointmentType | undefined>(
+    undefined
+  );
 
   const addAppointment = (appointment: Appointment) => {
     setUserAppointment(appointment);
@@ -66,7 +68,7 @@ const App: FC = () => {
     if (cursorIsIntersecting) {
       const appointmentType = appointmentIntersection[0].type; // @todo -- interpret this
 
-      setInvalid(InvalidType.BreakIntersecting);
+      setInvalid(appointmentType);
     } else {
       if (invalid !== undefined) setInvalid(undefined);
     }
@@ -74,6 +76,7 @@ const App: FC = () => {
     setCursor(oldCursor => ({
       ...oldCursor,
       position: newCursorPosition,
+      isIntersecting: cursorIsIntersecting,
     }));
   }, [hours, minutes, invalid, appointments]);
 
