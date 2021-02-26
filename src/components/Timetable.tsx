@@ -6,13 +6,17 @@ import TimetableHeader from './TimetableHeader';
 
 export interface TimetableProps {
   timetableDate: ScheduleDate;
+  appointments: ScheduleDate[];
 }
 
-const Timetable: FC<TimetableProps> = ({ timetableDate }) => {
+const Timetable: FC<TimetableProps> = ({ timetableDate, appointments }) => {
   return (
     <VStack>
       <TimetableHeader timetableDate={timetableDate} />
-      <TimetableBody timetableDate={timetableDate} />
+      <TimetableBody
+        timetableDate={timetableDate}
+        appointments={appointments}
+      />
     </VStack>
   );
 };

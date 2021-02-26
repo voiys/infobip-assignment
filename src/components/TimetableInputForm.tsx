@@ -10,6 +10,7 @@ export interface TimetableInputFormProps {
   minutesValue: string;
   setHours: Dispatch<SetStateAction<string>>;
   setMinutes: Dispatch<SetStateAction<string>>;
+  addAppointment: (appointment: ScheduleDate) => void;
 }
 
 const TimetableInputForm: FC<TimetableInputFormProps> = ({
@@ -18,13 +19,16 @@ const TimetableInputForm: FC<TimetableInputFormProps> = ({
   setHours,
   setMinutes,
   timetableDate,
+  addAppointment,
 }) => {
   const handleSubmit: FormEventHandler = e => {
     e.preventDefault();
 
     const time: Time = [parseInt(hoursValue), parseInt(minutesValue)];
 
-    console.log(`submitted ${time}`);
+    // @todo - add validation here
+
+    addAppointment(timetableDate.createUserAppointment(time));
   };
 
   return (
