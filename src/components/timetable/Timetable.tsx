@@ -11,7 +11,7 @@ import { ScheduleDate } from '../../utils/ScheduleDate';
 import ErrorMessage from '../shared/ErrorMessage';
 import Timeline from '../timeline/Timeline';
 import TimetableInputForm from '../timetable-input/TimetableInputForm';
-import TimetableList from '../timetable-list/TimetableListHeader';
+import TimetableList from '../timetable-list/TimetableList';
 import TimetableBody from './TimetableBody';
 import TimetableContainer from './TimetableContainer';
 import TimetableHeading from './TimetableHeading';
@@ -64,7 +64,10 @@ const Timetable: FC<TimetableProps> = ({
         timetableDate={timetableDate}
       />
       <TimetableBody>
-        <TimetableList timetableDate={timetableDate} />
+        <TimetableList
+          appointments={appointments}
+          timetableDate={timetableDate}
+        />
 
         {userAppointment ? (
           <TimetableUserAppointment

@@ -56,6 +56,7 @@ const useTimetable = (
       appointments
     );
     const cursorIsIntersecting = appointmentIntersection.length > 0;
+    let newCursorColor = userAppointment ? 'green.100' : 'blue.100';
 
     if (cursorIsIntersecting) {
       const appointmentType = appointmentIntersection[0].type;
@@ -69,6 +70,7 @@ const useTimetable = (
       ...oldCursor,
       position: newCursorPosition,
       isIntersecting: cursorIsIntersecting,
+      color: newCursorColor,
     }));
   }, [hours, minutes, invalidMessage, appointments, timetableDate]);
 
